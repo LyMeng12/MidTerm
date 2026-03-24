@@ -99,5 +99,6 @@ public class Order {
         System.out.println("Payment: \ud83d\udcb5" + this.getPayment());
         System.out.println("PaymentBy: " + this.getPaymentBy());
         System.out.println("Status: " + this.getStatus());
+        System.out.println("--------------------------------------------------------------------------------------------------------------------");
     }
 }

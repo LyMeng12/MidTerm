@@ -29,26 +29,25 @@ public class SaveFile extends Thread {
 
             for(Order orders : this.order) {
                 for(Product p : orders.getProducts()) {
-                    productid = productid + p.getProductId() + ":" + p.getProductName() + ":" + p.getProductPrice() + ":" + p.getGetProductQty() + "|";
-                    orders.setTotalPrice(p.getProductPrice() + (double)p.getGetProductQty());
+                    productid = p.getProductId() + ":" + p.getProductName() + ":" + p.getProductPrice() + ":" + p.getGetProductQty() + "|";
+                    orders.setTotalPrice(p.getProductPrice() + p.getGetProductQty());
                 }
+                Customer customer = orders.getCustomer();
+                String cus =customer.getCustomerId() + "," + customer.getCustomerName()+ "," +customer.getCustomerGender()+ "," +customer.getCustomerNumber();
 
-                int var10001 = orders.getOrderId();
-                fOrder.write(var10001 + "," + orders.getCustomer().getCustomerName() + "," + orders.getCustomer().getCustomerGender() + "," + orders.getCustomer().getCustomerNumber() + "," + productid + "," + orders.getTotalPrice() + "," + orders.getPayment() + "," + orders.getPaymentBy() + "," + orders.getStatus() + "\n");
+                fOrder.write(orders.getOrderId() + "," +cus+ "," + productid + "," + orders.getTotalPrice() + "," + orders.getPayment() +  "," + orders.getStatus() +"," + orders.getPaymentBy() + "\n");
             }
 
             fOrder.close();
 
             for(Product p : this.products) {
-                int var15 = p.getProductId();
-                fProduct.write(var15 + "," + p.getProductName() + "," + p.getProductPrice() + "," + p.getGetProductQty() + "\n");
+                fProduct.write(p.getProductId() + "," + p.getProductName() + "," + p.getProductPrice() + "," + p.getGetProductQty() + "\n");
             }
 
             fProduct.close();
 
             for(Customer c : this.customers) {
-                int var16 = c.getCustomerId();
-                fCustomer.write(var16 + "," + c.getCustomerName() + "," + c.getCustomerGender() + "," + c.getCustomerNumber() + ",\n");
+                fCustomer.write(c.getCustomerId() + "," + c.getCustomerName() + "," + c.getCustomerGender() + "," + c.getCustomerNumber() + ",\n");
             }
 
             fCustomer.close();

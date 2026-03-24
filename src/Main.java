@@ -338,7 +338,7 @@ public class Main {
                         System.out.println("-------------------------------------------");
                         System.out.print("Your Order Product: ");
                         for (Product product : productOrder) {
-                            System.out.print(product.getProductId()+":"+product.getProductPrice()+"|");
+                            System.out.println(product.getProductId()+":"+product.getGetProductQty()+"|");
                         }
                         System.out.println("-------------------------------------------");
                         boolean checkProduct = true;
@@ -347,10 +347,10 @@ public class Main {
                             int productID = sc.nextInt();
                             for (Product product : products) {
                                 if(product.getProductId() == productID){
-                                    System.out.println("Enter Qty Again(1-"+product.getGetProductQty()+")):");
+                                    System.out.print("Enter Qty Again(1-"+product.getGetProductQty()+")):");
                                     int qty = sc.nextInt();
                                     while (qty<0 || qty >= product.getGetProductQty()){
-                                        System.out.println("Enter Qty Again(1-"+product.getGetProductQty()+")):");
+                                        System.out.print("Enter Qty Again(1-"+product.getGetProductQty()+")):");
                                         qty = sc.nextInt();
                                     }
 
@@ -365,7 +365,7 @@ public class Main {
                                 System.out.println("Product ID: " + productID + "Not Found");
                             }
                         }
-                        System.out.println("Buy More Product !(y/n): ");
+                        System.out.print("Buy More Product !(y/n): ");
                         String input = sc.next().toLowerCase();
                         while (!input.equals("y") && !input.equals("n")) {
                             System.out.print("Enter again (y/n): ");
@@ -378,7 +378,7 @@ public class Main {
                         }
                     }
                     System.out.println("-------------------------------------------");
-                    System.out.println("Payment now or not(y/n)");
+                    System.out.print("Payment now or not(y/n)");
                     String inp = sc.next().toLowerCase();
                     while (!inp.equals("y") && !inp.equals("n")) {
                         System.out.print("Enter again (y/n): ");
@@ -451,17 +451,16 @@ public class Main {
                                 orders.add(new Order(id,customer,productOrder,totalPrice,0,"Order Already!✍️",""));
                             }break;
                         }
-                    }else if (inp.equals("n")) {
+                    }else {
                         int id=1;
                         for(Order order : orders){
                             id+=1;
                         }
-                        orders.add(new Order(id,customer,productOrder,totalPrice,0,"Order Already!✍️",""));
+                        orders.add(new Order(id,customer,productOrder,totalPrice,0,"Order Already!✍️","Not Payment"));
                     }
                 }break;
                 case 4: {
                     System.out.println("--------------- Payment Already ---------------");
-
                     for (Order order : orders) {
                         if (order.getPayment() == order.getTotalPrice()) {
                             order.printOrderPayment();
@@ -471,7 +470,7 @@ public class Main {
                     System.out.println("--------------- Payment Not Ready ---------------");
 
                     for (Order order : orders) {
-                        if (order.getPayment() > order.getTotalPrice()) {
+                        if (order.getPayment() < order.getTotalPrice()) {
                             order.printOrderPayment();
                         }
                     }
