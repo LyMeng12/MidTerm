@@ -93,7 +93,7 @@ public class Order {
         System.out.println("-------------- Product List --------------");
 
         for(Product product : this.getProducts()) {
-            System.out.println("| Product ID:" + product.getProductId() + "Product Name: " + product.getProductName() + "| Product Price: \ud83d\udcb5" + product.getProductPrice() + "| Product Qty: \ud83d\udce6" + product.getGetProductQty());
+            System.out.println(" Product ID:" + product.getProductId() + "Product Name: " + product.getProductName() + "| Product Price: \ud83d\udcb5" + product.getProductPrice() + "| Product Qty: \ud83d\udce6" + product.getGetProductQty());
         }
 
         System.out.println("Total Price: \ud83d\udcb5" + this.getTotalPrice());
@@ -103,7 +103,6 @@ public class Order {
         System.out.println("--------------------------------------------------------------------------------------------------------------------");
     }
     public void printOrderNotPayment() {
-        System.out.println("--------------------------------------------------------------------------------------------------------------------");
         System.out.println("Order ID: " + this.getOrderId()+"| Customer Name: " + this.getCustomer().getCustomerName()+"| Customer Gender: " + getCustomer().getCustomerGender() + "| Customer PhoneNumber: " + getCustomer().getCustomerNumber());
     }
 }

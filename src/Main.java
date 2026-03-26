@@ -17,9 +17,9 @@ public class Main {
         OutputFile outputFile = new OutputFile();
         outputFile.start();
         try {
-            outputFile.join(); // wait thread finish
-        } catch (InterruptedException e) {
-            e.printStackTrace();
+            outputFile.join();
+        }catch (InterruptedException e){
+            System.out.println(e.getMessage());
         }
         Scanner sc = new Scanner(System.in);
         ArrayList<Order> orders = outputFile.getOrders();
@@ -181,7 +181,19 @@ public class Main {
                                                     break;
                                                 }
                                             }
-                                            System.out.println("Product ID: " + productID+ " Not Found!");
+                                            if (checkupdate) {
+                                                System.out.println("Product ID: " + productID+ " Not Found!");
+                                            }
+                                        }
+                                        try {
+                                            saveFile.SaveProduct(products);
+                                        } catch (IOException e) {
+                                            throw new RuntimeException(e);
+                                        }
+                                        try {
+                                            saveFile.SaveOrder(orders);
+                                        } catch (IOException e) {
+                                            throw new RuntimeException(e);
                                         }
                                     }break;
                                 }
@@ -326,6 +338,11 @@ public class Main {
                                 } catch (IOException e) {
                                     throw new RuntimeException(e);
                                 }
+                                try {
+                                    saveFile.SaveOrder(orders);
+                                } catch (IOException e) {
+                                    throw new RuntimeException(e);
+                                }
                             }break;
                             case 4:{
                                 ArrayList<Integer> CustomerIDs = new ArrayList<>();
@@ -376,7 +393,7 @@ public class Main {
                     String cusName = "";
                     String cusGender = "";
                     String cusPhoneNumber = "";
-                    ArrayList<Product> productOrder = new ArrayList<>();
+
                     for (Order order : orders) {
                         orderID++;
                     }
@@ -409,6 +426,7 @@ public class Main {
                                 }
                             }
                             Customer customer = new Customer(customerID, cusName, cusGender, cusPhoneNumber);
+                            ArrayList<Product> productOrder = new ArrayList<Product>();
                             int ProductID = 1;
                             boolean addproduct = true;
                             boolean buymore = true;
@@ -421,6 +439,7 @@ public class Main {
                                     for (Product product : productOrder) {
                                         System.out.println("ID:"+product.getProductId()+"Name:" + product.getProductName() + " Qty:" + product.getGetProductQty());
                                     }
+                                    System.out.println("--------------------------------------------");
                                     System.out.print("Enter Product ID: ");
                                     ProductID = sc.nextInt();
                                     if(!productOrder.isEmpty()) {
@@ -504,8 +523,8 @@ public class Main {
                                         case 2:byBank="ACLEDA Bank";break;
                                         case 3:byBank="WING Bank";break;
                                     }
-                                    for (Product product : products) {
-                                        for (Product productOders : productOrder) {
+                                    for (Product product : productOrder) {
+                                        for (Product productOders : products) {
                                             if (productOders.getProductId() == product.getProductId()) {
                                                 product.setGetProductQty(product.getGetProductQty()-productOders.getGetProductQty());
                                                 totalAmount += productOders.getGetProductQty()*productOders.getProductPrice();
@@ -524,9 +543,14 @@ public class Main {
                                         System.out.println("please Enter TotalPayment again: ");
                                         totalPayment = sc.nextDouble();
                                     }
-                                    orders.add(new Order(orderID,customer,productOrder,totalAmount,totalPayment,"Payment Already",byBank));
-                                    productOrder.clear();
+                                    orders.add(new Order(orderID,customer,new ArrayList<>(productOrder),totalAmount,totalPayment,"Payment Already",byBank));
+                                    try {
+                                        saveFile.SaveOrder(orders);
+                                    } catch (IOException e) {
+                                        throw new RuntimeException(e);
+                                    }
                                     System.out.println("Thank you for your order!");
+
                                 }break;
                                 case 2:{
                                     for (Product product : products) {
@@ -544,7 +568,7 @@ public class Main {
                                         System.out.println("please Enter TotalPayment again: ");
                                         totalPayment = sc.nextDouble();
                                     }
-                                    orders.add(new Order(orderID,customer,productOrder,totalAmount,totalPayment,"Payment Already","checkout"));
+                                    orders.add(new Order(orderID,customer,new ArrayList<>(productOrder),totalAmount,totalPayment,"Payment Already","checkout"));
                                     try {
                                         saveFile.SaveProduct(products);
                                     } catch (IOException e) {
@@ -562,7 +586,7 @@ public class Main {
                                     for (Product productOders : productOrder) {
                                         totalAmount += productOders.getGetProductQty()*productOders.getProductPrice();
                                     }
-                                    orders.add(new Order(orderID,customer,productOrder,totalAmount,0,"Not Payment","Not"));
+                                    orders.add(new Order(orderID,customer,new ArrayList<>(productOrder),totalAmount,0,"Not Payment","Not"));
                                     try {
                                         saveFile.SaveOrder(orders);
                                     } catch (IOException e) {
@@ -570,28 +594,73 @@ public class Main {
                                     }
 
                                 }break;
-
-                            }
-
+                            }productOrder.clear();
                         }
-
                     }
-                    productOrder.clear();
                 }break;
                 case 4: {
-                    System.out.println("--------------- Payment Already ---------------");
-                    for (Order order : orders) {
-                        if (order.getPayment() == order.getTotalPrice()) {
-                            order.printOrderNotPayment();
+                    ArrayList<Order> alradyOrders = new ArrayList<>();
+                    ArrayList<Order> notAlreadyOrders = new ArrayList<>();
+                    for(Order order : orders) {
+                        if (order.getPayment() == order.getTotalPrice()){
+                            alradyOrders.add(order);
+                        }else if (order.getPayment() < order.getTotalPrice()){
+                            notAlreadyOrders.add(order);
                         }
                     }
-                    System.out.println("--------------- Payment Not Ready ---------------");
+                    boolean Find = true;
+                    while (Find){
+                        System.out.println("--------------- Payment Already ---------------");
+                        if (alradyOrders.isEmpty()){
+                            System.out.println("Not Have Payment Already");
+                        }else {
+                            for (Order order : alradyOrders) {
+                                order.printOrderNotPayment();
 
-                    for (Order order : orders) {
-                        if (order.getPayment() < order.getTotalPrice()) {
-                            order.printOrderNotPayment();
+                            }
+                        }
+                        System.out.println("--------------- Payment Not Ready ---------------");
+                        if (notAlreadyOrders.isEmpty()){
+                            System.out.println("Not Have Payment Not Ready");
+                        }else {
+                            for (Order order : notAlreadyOrders) {
+                                order.printOrderNotPayment();
+                            }
+                        }
+                        System.out.println("---------------------------------------------------");
+                        System.out.println("Close or See Order.");
+                        System.out.println("1.Find by Id.");
+                        System.out.println("2.Close Order.");
+                        System.out.print("Chose :");
+                        int chosen = sc.nextInt();
+                        while (chosen < 1 || chosen > 2) {
+                            System.out.print("Choose again: ");
+                            chosen = sc.nextInt();
+                        }
+                        switch (chosen) {
+                            case 1:{
+                                boolean findOrderId=true;
+                                while (findOrderId){
+                                    System.out.println("Enter ID: ");
+                                    int id = sc.nextInt();
+                                    for (Order order : orders) {
+                                        if (order.getOrderId() == id) {
+                                            order.printOrderPayment();
+                                            findOrderId=false;
+                                            break;
+                                        }
+                                    }
+                                    if (findOrderId) {
+                                        System.out.println("Order Id Not Found");
+                                    }
+                                }
+                            }break;
+                            case 2:{
+                                Find = false;
+                            }break;
                         }
                     }
+
                 }break ;
                 case 5: {
                     System.out.println("--------------- Payment Not Ready ---------------");
@@ -603,7 +672,7 @@ public class Main {
                         }
                     }
                     if (!orders1.isEmpty()){
-                        System.out.println("--------------------------------------------------");
+                        System.out.println("---------------------------------------------------");
                         boolean checkorder = true;
 
                         int orderid =0;
@@ -622,7 +691,6 @@ public class Main {
                         }
                         for (Order order : orders) {
                             if (order.getOrderId() == orderid) {
-                                double totalAmount=1;
                                 ArrayList<Product> productOrder = order.getProducts();
                                 System.out.println("Payment Order Product.");
                                 System.out.println("1.PaymentByBank");
@@ -660,7 +728,7 @@ public class Main {
 
                                             }
                                         }
-                                        System.out.println("Total Payment: " + order.getTotalPrice());
+                                        System.out.println("Total Payment: $" + order.getTotalPrice());
                                         System.out.print("Enter TotalPayment: ");
                                         double totalPayment = sc.nextDouble();
                                         while (totalPayment != order.getTotalPrice()) {
@@ -678,19 +746,18 @@ public class Main {
                                         System.out.println("Thank you for your order!");
                                     }break;
                                     case 2:{
-                                        for (Product product : products) {
-                                            for (Product productOders : productOrder) {
+                                        for (Product productOders : productOrder ) {
+                                            for (Product product : products) {
                                                 if (productOders.getProductId() == product.getProductId()) {
                                                     product.setGetProductQty(product.getGetProductQty()-productOders.getGetProductQty());
-                                                    totalAmount += productOders.getGetProductQty()*productOders.getProductPrice();
                                                 }
                                             }
                                         }
 
-                                        System.out.println("Total Payment: " + totalAmount);
+                                        System.out.println("Total Payment: $" + order.getTotalPrice());
                                         System.out.print("Enter TotalPayment: ");
                                         double totalPayment = sc.nextDouble();
-                                        while (totalPayment != totalAmount) {
+                                        while (totalPayment != order.getTotalPrice()) {
                                             System.out.println("please Enter TotalPayment again: ");
                                             totalPayment = sc.nextDouble();
                                         }

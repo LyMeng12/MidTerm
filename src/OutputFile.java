@@ -15,8 +15,6 @@ public class OutputFile extends Thread {
     private ArrayList<Product> products = new ArrayList<>();
     private ArrayList<Order> orders = new ArrayList<>();
 
-
-
     public ArrayList<Product> getProducts() {
         return this.products;
     }
@@ -41,7 +39,7 @@ public class OutputFile extends Thread {
         this.orders = orders;
     }
 
-    public void run() {
+    public void run(){
         try {
             File fileOrder = new File("Orders.txt");
             File fileCustomer = new File("Customers.txt");
@@ -68,7 +66,7 @@ public class OutputFile extends Thread {
 
                     for(String p : productArr) {
                         String[] pData = p.split(":");
-                        Product product = new Product(Integer.parseInt(pData[0]), pData[1], Double.parseDouble(pData[3]), Integer.parseInt(pData[2]));
+                        Product product = new Product(Integer.parseInt(pData[0]), pData[1], Double.parseDouble(pData[2]), Integer.parseInt(pData[3]));
                         products.add(product);
                     }
                     Order order = new Order(Integer.parseInt(data[0]), customer, products, Double.parseDouble(data[6]), Double.parseDouble(data[7]), data[8], data[9]);
