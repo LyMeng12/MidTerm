@@ -86,8 +86,9 @@ public class Order {
     }
 
     public void printOrderPayment() {
+        System.out.println("--------------------------------------------------------------------------------------------------------------------");
         System.out.println("Order ID: " + this.getOrderId());
-        System.out.println("Customer Name: " + getCustomer() + "| Customer Gender: " + this.getCustomer().getCustomerGender());
+        System.out.println("Customer Name: " + this.getCustomer().getCustomerName() + "| Customer Gender: " + this.getCustomer().getCustomerGender());
         System.out.println("Customer PhoneNumber: " + this.getCustomer().getCustomerNumber());
         System.out.println("-------------- Product List --------------");
 
@@ -100,5 +101,9 @@ public class Order {
         System.out.println("PaymentBy: " + this.getPaymentBy());
         System.out.println("Status: " + this.getStatus());
         System.out.println("--------------------------------------------------------------------------------------------------------------------");
+    }
+    public void printOrderNotPayment() {
+        System.out.println("--------------------------------------------------------------------------------------------------------------------");
+        System.out.println("Order ID: " + this.getOrderId()+"| Customer Name: " + this.getCustomer().getCustomerName()+"| Customer Gender: " + getCustomer().getCustomerGender() + "| Customer PhoneNumber: " + getCustomer().getCustomerNumber());
     }
 }
