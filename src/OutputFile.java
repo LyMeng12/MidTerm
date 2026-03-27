@@ -59,18 +59,22 @@ public class OutputFile extends Thread {
             while(sc.hasNextLine()) {
                 String line = sc.nextLine();
                 if (!line.trim().isEmpty()) {
-                    String[] data = line.split(",");
-                    Customer customer = new Customer(Integer.parseInt(data[1]), data[2], data[3], data[4]);
-                    ArrayList<Product> products = new ArrayList();
-                    String[] productArr = data[5].split("\\|");
+                    try{
+                        String[] data = line.split(",");
+                        Customer customer = new Customer(Integer.parseInt(data[1]), data[2], data[3], data[4]);
+                        ArrayList<Product> products = new ArrayList();
+                        String[] productArr = data[5].split("\\|");
 
-                    for(String p : productArr) {
-                        String[] pData = p.split(":");
-                        Product product = new Product(Integer.parseInt(pData[0]), pData[1], Double.parseDouble(pData[2]), Integer.parseInt(pData[3]));
-                        products.add(product);
+                        for(String p : productArr) {
+                            String[] pData = p.split(":");
+                            Product product = new Product(Integer.parseInt(pData[0]), pData[1], Double.parseDouble(pData[2]), Integer.parseInt(pData[3]));
+                            products.add(product);
+                        }
+                        Order order = new Order(Integer.parseInt(data[0]), customer, products, Double.parseDouble(data[6]), Double.parseDouble(data[7]), data[8], data[9]);
+                        ordersArrayList.add(order);
+                    } catch (Exception e) {
+                        System.out.println(e.getMessage());
                     }
-                    Order order = new Order(Integer.parseInt(data[0]), customer, products, Double.parseDouble(data[6]), Double.parseDouble(data[7]), data[8], data[9]);
-                    ordersArrayList.add(order);
                 }
             }
 
@@ -79,17 +83,28 @@ public class OutputFile extends Thread {
             while(sc1.hasNextLine()) {
                 String line2 = sc1.nextLine();
                 if (!line2.trim().isEmpty()) {
-                    String[] data = line2.split(",");
-                    customerslist.add(new Customer(Integer.parseInt(data[0]), data[1], data[2], data[3]));
+                    try{
+                        String[] data = line2.split(",");
+                        customerslist.add(new Customer(Integer.parseInt(data[0]), data[1], data[2], data[3]));
+                    } catch (Exception e) {
+                        System.out.println("Invalid line skipped: " + line2);
+                    }
+
                 }
             }
             setCustomer(customerslist);
 
             while(sc2.hasNextLine()) {
                 String line1 = sc2.nextLine();
+
                 if (!line1.trim().isEmpty()) {
-                    String[] data = line1.split(",");
-                    productlist.add(new Product(Integer.parseInt(data[0]), data[1], Double.parseDouble(data[2]), Integer.parseInt(data[3])));
+                    try{
+                        String[] data = line1.split(",");
+                        productlist.add(new Product(Integer.parseInt(data[0]), data[1], Double.parseDouble(data[2]), Integer.parseInt(data[3])));
+                    } catch (Exception e) {
+                        System.out.println("Invalid line skipped: " + line1);
+                    }
+
                 }
             }
 

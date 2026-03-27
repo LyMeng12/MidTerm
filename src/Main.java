@@ -162,14 +162,27 @@ public class Main {
                                                     double productPrice = sc.nextDouble();
                                                     product.setProductName(productName);
                                                     product.setProductPrice(productPrice);
+                                                    for(Order order : orders) {
+                                                        if(order.getTotalPrice()>order.getPayment()){
+                                                            for(Product productupdate : order.getProducts()) {
+                                                                if(productID==productupdate.getProductId()){
+                                                                    productupdate.setProductName(productName);
+                                                                    productupdate.setProductPrice(productPrice);
+                                                                }
+                                                            }
+                                                        }
+
+                                                    }
                                                     checkupdate = false;
                                                     break;
                                                 }
+
                                             }
                                             if (checkupdate) {
                                                 System.out.println("Product ID: " + productID+ " Not Found!");
                                             }
                                         }
+
                                         try {
                                             saveFile.SaveProduct(products);
                                         } catch (IOException e) {
