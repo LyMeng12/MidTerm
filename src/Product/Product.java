@@ -53,6 +53,6 @@ public class Product {
     }
 
     public void PrintProduct() {
-        System.out.println("Product Id: " + getProductId() + "|\tName : " + this.getProductName() + "|\tPrice : " + this.getProductPrice() + "|\tQuantity : " + this.getGetProductQty());
+        System.out.println(getProductId() + "\t\t" + this.getProductName() + "\t\t" + this.getProductPrice()+"$" + "\t\t" + this.getGetProductQty());
     }
 }

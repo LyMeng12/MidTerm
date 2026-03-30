@@ -103,6 +103,6 @@ public class Order {
         System.out.println("--------------------------------------------------------------------------------------------------------------------");
     }
     public void printOrderNotPayment() {
-        System.out.println("Order ID: " + this.getOrderId()+"| Customer Name: " + this.getCustomer().getCustomerName()+"| Customer Gender: " + getCustomer().getCustomerGender() + "| Customer PhoneNumber: " + getCustomer().getCustomerNumber());
+        System.out.println(this.getOrderId()+"\t\t" + this.getCustomer().getCustomerName()+"\t\t" + getCustomer().getCustomerGender() + "\t\t" + getCustomer().getCustomerNumber());
     }
 }
