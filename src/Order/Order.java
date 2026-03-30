@@ -93,9 +93,9 @@ public class Order {
         System.out.println("-------------- Product List --------------");
 
         for(Product product : this.getProducts()) {
-            System.out.println(" Product ID:" + product.getProductId() + "Product Name: " + product.getProductName() + "| Product Price: \ud83d\udcb5" + product.getProductPrice() + "| Product Qty: \ud83d\udce6" + product.getGetProductQty());
+            System.out.println("| Product ID:" + product.getProductId() + "| Product Name: " + product.getProductName() + "| Product Price: \ud83d\udcb5" + product.getProductPrice() + "| Product Qty: \ud83d\udce6" + product.getGetProductQty());
         }
-
+        System.out.println("--------------------------------------------------------------------------------------------------------------------");
         System.out.println("Total Price: \ud83d\udcb5" + this.getTotalPrice());
         System.out.println("Payment: \ud83d\udcb5" + this.getPayment());
         System.out.println("PaymentBy: " + this.getPaymentBy());

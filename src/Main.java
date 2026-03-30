@@ -35,15 +35,19 @@ public class Main {
             System.out.println("4.View Order\ud83d\udccb");
             System.out.println("5.Process Order\ud83d\udd04️");
             System.out.println("6.Exit\ud83c\udd91");
-            System.out.print("Pleas choice Option: ");
-            int choice = sc.nextInt();
-
-            while(choice < 1 || choice > 6) {
-                System.out.println("Invalid choice");
-                System.out.print("Enter  choice again: ");
-                choice = sc.nextInt();
+            int choice=0;
+            while (true) {
+                System.out.print("Pleas choice Option: ");
+                try{
+                    choice = sc.nextInt();
+                    if (choice >=1 && choice <=6){
+                        break;
+                    }
+                } catch (Exception e) {
+                    System.out.println("Invalid number");
+                    sc.next();
+                }
             }
-
             switch (choice) {
 
                 case 1: {
@@ -55,12 +59,17 @@ public class Main {
                         System.out.println("3.Update Product");
                         System.out.println("4.Delete Product");
                         System.out.println("5.Close Product");
-                        System.out.print("Pleas choice Option: ");
-                        choice = sc.nextInt();
-                        while(choice < 1 || choice > 5) {
-                            System.out.println("Invalid choice");
-                            System.out.print("Enter  choice again: ");
-                            choice = sc.nextInt();
+                        while (true){
+                            System.out.print("Pleas choice Option: ");
+                            try{
+                                choice = sc.nextInt();
+                                if (choice >=1 && choice <=5){
+                                    break;
+                                }
+                            } catch (Exception e) {
+                                System.out.println("Invalid number");
+                                sc.next();
+                            }
                         }
                         switch (choice) {
                             case 1: {
@@ -94,8 +103,9 @@ public class Main {
                                     productID=product.getProductId();
                                 }
                                 productID+=1;
+                                sc.nextLine();
                                 System.out.print("Product Name: ");
-                                String productName = sc.next();
+                                String productName = sc.nextLine();
                                 System.out.print("Product Price: ");
                                 double productPrice = sc.nextDouble();
                                 System.out.print("Product Quantity: ");
@@ -111,11 +121,17 @@ public class Main {
                                 System.out.println("--------------- Update Product -------------- ");
                                 System.out.println("1.Add More Product Qty");
                                 System.out.println("2.Update Product (Name and Price)");
-                                System.out.print("Choose : ");
-                                choice = sc.nextInt();
-                                while(choice < 1 || choice > 2) {
-                                    System.out.print("Choose again: ");
-                                    choice = sc.nextInt();
+                                while (true){
+                                    System.out.print("Pleas choice Option: ");
+                                    try{
+                                        choice = sc.nextInt();
+                                        if (choice <=1 || choice >=2){
+                                            break;
+                                        }
+                                    } catch (Exception e) {
+                                        System.out.println("Invalid number");
+                                        sc.next();
+                                    }
                                 }
                                 switch (choice) {
                                     case 1: {
@@ -245,11 +261,17 @@ public class Main {
                         System.out.println("3.Update Customer");
                         System.out.println("4.Delete Customer");
                         System.out.println("5.Close Customer");
-                        System.out.print("Choose : ");
-                        choice = sc.nextInt();
-                        while(choice < 1 || choice >5) {
-                            System.out.print("Choose again: ");
-                            choice = sc.nextInt();
+                        while (true){
+                            System.out.print("Pleas choice Option: ");
+                            try{
+                                choice = sc.nextInt();
+                                if (choice >=1 && choice <=5){
+                                    break;
+                                }
+                            } catch (Exception e) {
+                                System.out.println("Invalid number");
+                                sc.next();
+                            }
                         }
                         switch (choice) {
                             case 1: {
@@ -270,7 +292,6 @@ public class Main {
                                     customerID=customer.getCustomerId();
                                 }
                                 customerID+=1;
-
                                 System.out.print("Customer Name: ");
                                 String customerName = sc.next();
                                 System.out.print("Customer Gender(Male/Female): ");
@@ -634,12 +655,19 @@ public class Main {
                         System.out.println("1.Find by Id.");
                         System.out.println("2.Close Order.");
                         System.out.print("Chose :");
-                        int chosen = sc.nextInt();
-                        while (chosen < 1 || chosen > 2) {
-                            System.out.print("Choose again: ");
-                            chosen = sc.nextInt();
+                        while (true){
+                            System.out.print("Pleas choice Option: ");
+                            try{
+                                choice = sc.nextInt();
+                                if (choice >=1 && choice <=2){
+                                    break;
+                                }
+                            } catch (Exception e) {
+                                System.out.println("Invalid number");
+                                sc.next();
+                            }
                         }
-                        switch (chosen) {
+                        switch (choice) {
                             case 1:{
                                 boolean findOrderId=true;
                                 while (findOrderId){
@@ -735,14 +763,19 @@ public class Main {
                                         System.out.println("Payment Order Product.");
                                         System.out.println("1.PaymentByBank");
                                         System.out.println("2.checkout");
-                                        System.out.print("Enter Order By: ");
-                                        int payment = sc.nextInt();
-                                        while (payment < 1 || payment > 2) {
-                                            System.out.println("Please enter a valid option!");
-                                            System.out.println("Choose again: ");
-                                            payment = sc.nextInt();
+                                        while (true){
+                                            System.out.print("Pleas choice Option: ");
+                                            try{
+                                                choice = sc.nextInt();
+                                                if (choice >=1 && choice >=2){
+                                                    break;
+                                                }
+                                            } catch (Exception e) {
+                                                System.out.println("Invalid number");
+                                                sc.next();
+                                            }
                                         }
-                                        switch (payment) {
+                                        switch (choice) {
                                             case 1:{
                                                 String byBank ="";
                                                 System.out.println("Payment By Bank");

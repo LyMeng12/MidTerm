@@ -2,3 +2,4 @@
 2,3,NaNa,Male,098748758,2:Milk:2.0:10|,30.0,30.0,Payment Already,ACLEDA Bank
 3,1,Meng,Male,083736743,1:Milk:2.0:40|,80.0,0.0,Not Payment,Not
 4,2,LyLy,Male,0767464763,1:Milk:2.0:30|,60.0,60.0,Payment Already,Checkout
+5,1,Meng,Male,083736743,1:Milk:2.0:-10|2:Coca:1.0:-50|,90.0,90.0,Payment Already,ACLEDA Bank
