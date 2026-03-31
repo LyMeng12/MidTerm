@@ -77,18 +77,22 @@ public class Main {
                         switch (choice) {
                             case 1: {
                                 System.out.println("=================================================");
-                                System.out.println("\t\t\tProduct Low in Stock\ud83d\udcbb\ud83d\udcbb");
+                                System.out.println("\t\t\tProduct Low in Stock");
                                 System.out.println("=================================================");
-                                boolean checkProduct = false;
+                                ArrayList<Product> lowproducts = new ArrayList<Product>();
+
                                 for(Product product : products) {
                                     if(product.getGetProductQty()<10){
-                                        checkProduct = true;
-                                        product.PrintProduct();
-
+                                        lowproducts.add(product);
                                     }
                                 }
-                                if (!checkProduct) {
+                                if (lowproducts.isEmpty()) {
                                     System.out.println("Not Product Have");
+                                }else {
+                                    System.out.println("ID\t\tName\t\tPrice\tQuantity");
+                                    for (Product product : lowproducts) {
+                                        product.PrintProduct();
+                                    }
                                 }
                                 System.out.println("-------------------------------------------------");
                                 System.out.println("=================================================");
@@ -303,7 +307,9 @@ public class Main {
                 case 2: {
                     boolean customercheck = true;
                     while(customercheck) {
-                        System.out.println("--------------- Manage Customer -------------- ");
+                        System.out.println("=================================================");
+                        System.out.println("\t\t\tManage Customer\ud83d\udcbb\ud83d\udcbb");
+                        System.out.println("=================================================");
                         System.out.println("1.view Customer");
                         System.out.println("2.Register Customer");
                         System.out.println("3.Update Customer");
@@ -323,19 +329,25 @@ public class Main {
                         }
                         switch (choice) {
                             case 1: {
-                                System.out.println("--------------- Customer -------------- ");
+                                System.out.println("=================================================");
+                                System.out.println("--------------------- Customer ----------------- ");
+                                System.out.println("=================================================");
                                 if(customers.isEmpty()) {
                                     System.out.println("Not View Customer");
                                 }else {
+                                    System.out.println("ID\t\tName\t\tGender\t\tPhone_number");
                                     for (Customer customer : customers) {
                                         customer.displayCustomerDetails();
                                     }
                                 }
+                                System.out.println("-------------------------------------------------");
                             }break;
                             case 2: {
-                                System.out.println("-------------- Register Customer ---------------");
+                                System.out.println("=================================================");
+                                System.out.println("--------------- Register Customer ---------------");
+                                System.out.println("=================================================");
                                 int customerID = 0;
-
+//                                System.out.println("ID\t\tName\t\tGender\t\tPhone_number");
                                 for (Customer customer : customers) {
                                     customerID=customer.getCustomerId();
                                 }
@@ -359,11 +371,14 @@ public class Main {
                                 }
                             }break;
                             case 3: {
-                                System.out.println("--------------- Update Customer -------------- ");
+                                System.out.println("=================================================");
+                                System.out.println("---------------- Update Customer --------------- ");
+                                System.out.println("=================================================");
+                                System.out.println("ID\t\tName\t\tGender\t\tPhone_number");
                                 for(Customer customer : customers) {
                                     customer.displayCustomerDetails();
                                 }
-                                System.out.println("---------------------------------------------");
+                                System.out.println("-------------------------------------------------");
                                 boolean checkupdateID = true;
                                 String customerName="";
                                 String customerGender="";
@@ -416,33 +431,42 @@ public class Main {
                                 }
                             }break;
                             case 4:{
+                                ArrayList<Integer> Find = new ArrayList<>();
                                 ArrayList<Integer> CustomerIDs = new ArrayList<>();
                                 for (Order order : orders) {
                                     CustomerIDs.add(order.getCustomer().getCustomerId());
                                 }
                                 ArrayList<Integer> list = new ArrayList<>(new LinkedHashSet<>(CustomerIDs));
-                                System.out.println("--------------- Delete Customer -------------- ");
+                                System.out.println("=================================================");
+                                System.out.println("---------------- Delete Customer --------------- ");
+                                System.out.println("=================================================");
                                 for (Customer customer : customers) {
                                     if (!list.contains(customer.getCustomerId())) {
                                         customer.displayCustomerDetails();
+                                        Find.add(customer.getCustomerId());
                                     }
                                 }
-                                boolean delete = true;
-                                while (delete) {
-                                    System.out.print("Enter Customer ID: ");
-                                    int customerID = sc.nextInt();
-                                    for (Customer customer : customers) {
-                                        if (!list.contains(customer.getCustomerId())) {
-                                            if (customer.getCustomerId() == customerID) {
-                                                customers.remove(customer);
+                                if (Find.isEmpty()) {
+                                    System.out.println("Not Delete Customer");
+                                    System.out.println("-------------------------------------------------");
+                                }else{
+                                    boolean delete = true;
+                                    while (delete) {
+                                        System.out.print("Enter Customer ID: ");
+                                        int customerID = sc.nextInt();
+                                        for (Customer customer : customers) {
+                                            if (!list.contains(customer.getCustomerId())) {
+                                                if (customer.getCustomerId() == customerID) {
+                                                    customers.remove(customer);
 
-                                                delete = false;
-                                                break;
+                                                    delete = false;
+                                                    break;
+                                                }
                                             }
                                         }
-                                    }
-                                    if (delete) {
-                                        System.out.println("Customer ID: " + customerID + " Not Found!");
+                                        if (delete) {
+                                            System.out.println("Customer ID: " + customerID + " Not Found!");
+                                        }
                                     }
                                 }
                                 try {
@@ -457,7 +481,9 @@ public class Main {
 
                 }break;
                 case 3:{
-                    System.out.println("--------------- Create Order -------------- ");
+                    System.out.println("=================================================");
+                    System.out.println("\t\t\tCreate Order");
+                    System.out.println("=================================================");
                     int orderID = 1;
                     int customerID =1;
                     double totalAmount = 0;
@@ -466,15 +492,18 @@ public class Main {
                     String cusPhoneNumber = "";
 
                     for (Order order : orders) {
-                        orderID++;
+                        orderID = order.getOrderId();
                     }
+                    orderID += 1;
                     if(customers.isEmpty()) {
                         System.out.println("Not have Customer");
                         System.out.println("Please Register Customer");
+                        System.out.println("-------------------------------------------------");
                     }else {
                         if (products.isEmpty()) {
                             System.out.println("Not have Product");
                             System.out.println("Please Add Product");
+                            System.out.println("-------------------------------------------------");
                         }else {
                             for (Customer customer : customers) {
                                 customer.displayCustomerDetails();
@@ -503,14 +532,17 @@ public class Main {
                             boolean buymore = true;
                             while (buymore) {
                                 while (addproduct) {
+                                    System.out.println("ID\t\tName\t\tPrice\t\tQuantity");
                                     for(Product product : products) {
                                         product.PrintProduct();
                                     }
+                                    System.out.println("=================================================");
                                     System.out.println("Product Your Order:");
+                                    System.out.println("-------------------------------------------------");
                                     for (Product product : productOrder) {
-                                        System.out.println("ID:"+product.getProductId()+"Name:" + product.getProductName() + " Qty:" + product.getGetProductQty());
+                                        System.out.println("ID:"+product.getProductId()+" Name:" + product.getProductName() + " Qty:" + product.getGetProductQty());
                                     }
-                                    System.out.println("--------------------------------------------");
+                                    System.out.println("=================================================");
                                     System.out.print("Enter Product ID: ");
                                     ProductID = sc.nextInt();
                                     if(!productOrder.isEmpty()) {
@@ -552,7 +584,7 @@ public class Main {
                                         System.out.println("Product ID: " + ProductID + " Not Found!");
                                     }
                                 }
-                                System.out.println("---------------------------------------------- ");
+                                System.out.println("-------------------------------------------------");
                                 System.out.print("Buy More Products(y/n): ");
                                 String moreProducts = sc.next().toLowerCase();
                                 while (!moreProducts.equals("y") && !moreProducts.equals("n")) {
@@ -567,7 +599,7 @@ public class Main {
                             }
                             System.out.println("Payment Order Product.");
                             System.out.println("1.PaymentByBank");
-                            System.out.println("2.checkout");
+                            System.out.println("2.Cash");
                             System.out.println("3.save Order");
                             System.out.print("Enter Order: ");
                             int payment = sc.nextInt();
@@ -639,7 +671,7 @@ public class Main {
                                         System.out.println("please Enter TotalPayment again: ");
                                         totalPayment = sc.nextDouble();
                                     }
-                                    orders.add(new Order(orderID,customer,new ArrayList<>(productOrder),totalAmount,totalPayment,"Payment Already","checkout"));
+                                    orders.add(new Order(orderID,customer,new ArrayList<>(productOrder),totalAmount,totalPayment,"Payment Already","Cash"));
                                     try {
                                         saveFile.SaveProduct(products);
                                     } catch (IOException e) {
@@ -665,7 +697,7 @@ public class Main {
                                     }
 
                                 }break;
-                            }productOrder.clear();
+                            }
                         }
                     }
                 }break;
@@ -681,19 +713,26 @@ public class Main {
                     }
                     boolean Find = true;
                     while (Find){
-                        System.out.println("--------------- Payment Already ---------------");
+                        System.out.println("=================================================");
+                        System.out.println("---------------- Payment Already ----------------");
+                        System.out.println("=================================================");
                         if (alradyOrders.isEmpty()){
                             System.out.println("Not Have Payment Already");
                         }else {
+                            System.out.println("ID\t\tName\t\tGender\t\tPhone-Number");
                             for (Order order : alradyOrders) {
                                 order.printOrderNotPayment();
 
                             }
                         }
+                        System.out.println("-------------------------------------------------");
+                        System.out.println("=================================================");
                         System.out.println("--------------- Payment Not Ready ---------------");
+                        System.out.println("=================================================");
                         if (notAlreadyOrders.isEmpty()){
                             System.out.println("Not Have Payment Not Ready");
                         }else {
+                            System.out.println("ID\t\tName\t\tGender\t\tPhone-Number");
                             for (Order order : notAlreadyOrders) {
                                 order.printOrderNotPayment();
                             }
@@ -702,7 +741,6 @@ public class Main {
                         System.out.println("Close or See Order.");
                         System.out.println("1.Find by Id.");
                         System.out.println("2.Close Order.");
-                        System.out.print("Chose :");
                         while (true){
                             System.out.print("Pleas choice Option: ");
                             try{
@@ -719,7 +757,7 @@ public class Main {
                             case 1:{
                                 boolean findOrderId=true;
                                 while (findOrderId){
-                                    System.out.println("Enter ID: ");
+                                    System.out.print("Enter ID: ");
                                     id = sc.nextInt();
                                     for (Order order : orders) {
                                         if (order.getOrderId() == id) {
@@ -738,7 +776,8 @@ public class Main {
                             }break;
                         }
                     }
-
+                    System.out.println("-------------------------------------------------");
+                    sc.nextLine();
                 }break;
                 case 5: {
                    boolean findOrderId=true;
@@ -863,7 +902,7 @@ public class Main {
                                    }
                                }
                                if (!ProductOrders.isEmpty()) {
-                                   System.out.println("ID\t\tName\t\tGender\tPhone-Number");
+                                   System.out.println("ID\t\tName\t\tGender\t\tPhone-Number");
                                    for (Order order : ProductOrders) {
                                        order.printOrderNotPayment();
                                    }

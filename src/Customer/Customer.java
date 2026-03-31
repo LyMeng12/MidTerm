@@ -53,6 +53,6 @@ public class Customer {
     }
 
     public void displayCustomerDetails() {
-        System.out.println("Customer ID: " + getCustomerId() + "\tCustomer Name: " + getCustomerName() + "\tCustomer Gender: " +getCustomerGender());
+        System.out.println(getCustomerId() + "\t\t" + getCustomerName() + "\t\t" +getCustomerGender()+ "\t\t" +getCustomerNumber());
     }
 }

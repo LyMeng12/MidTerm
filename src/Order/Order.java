@@ -86,21 +86,23 @@ public class Order {
     }
 
     public void printOrderPayment() {
-        System.out.println("--------------------------------------------------------------------------------------------------------------------");
-        System.out.println("Order ID: " + this.getOrderId());
-        System.out.println("Customer Name: " + this.getCustomer().getCustomerName() + "| Customer Gender: " + this.getCustomer().getCustomerGender());
+        System.out.println("=================================================");
+        System.out.println("\t #Order" + this.getOrderId());
+        System.out.println("=================================================");
+        System.out.println("Customer Name: " + this.getCustomer().getCustomerName() + " Customer Gender: " + this.getCustomer().getCustomerGender());
         System.out.println("Customer PhoneNumber: " + this.getCustomer().getCustomerNumber());
-        System.out.println("-------------- Product List --------------");
-
+        System.out.println("=================================================");
+        System.out.println("------------------ Product List -----------------");
+        System.out.println("=================================================");
+        System.out.println("ID\t\tName\t\tPrice\t\tQuantity");
         for(Product product : this.getProducts()) {
-            System.out.println("| Product ID:" + product.getProductId() + "| Product Name: " + product.getProductName() + "| Product Price: \ud83d\udcb5" + product.getProductPrice() + "| Product Qty: \ud83d\udce6" + product.getGetProductQty());
+            System.out.println(product.getProductId() +"\t\t"+ product.getProductName() + "\t\t\ud83d\udcb5" + product.getProductPrice() + "\t\t\ud83d\udce6" + product.getGetProductQty());
         }
-        System.out.println("--------------------------------------------------------------------------------------------------------------------");
-        System.out.println("Total Price: \ud83d\udcb5" + this.getTotalPrice());
-        System.out.println("Payment: \ud83d\udcb5" + this.getPayment());
-        System.out.println("PaymentBy: " + this.getPaymentBy());
-        System.out.println("Status: " + this.getStatus());
-        System.out.println("--------------------------------------------------------------------------------------------------------------------");
+        System.out.println("-------------------------------------------------");
+        System.out.println("\t\t\t\t\t\t\tTotal Price: \ud83d\udcb5" + this.getTotalPrice());
+        System.out.println("\t\t\t\t\t\t\tPayment: \ud83d\udcb5" + this.getPayment());
+        System.out.println("\t\t\t\t\t\t\tPaymentBy: " + this.getPaymentBy());
+        System.out.println("-------------------------------------------------");
     }
     public void printOrderNotPayment() {
         System.out.println(this.getOrderId()+"\t\t" + this.getCustomer().getCustomerName()+"\t\t" + getCustomer().getCustomerGender() + "\t\t" + getCustomer().getCustomerNumber());
