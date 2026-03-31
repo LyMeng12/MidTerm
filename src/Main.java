@@ -555,20 +555,23 @@ public class Main {
                                     ProductID = sc.nextInt();
                                     if(!productOrder.isEmpty()) {
                                         boolean found = false;
-                                        for (Product product : productOrder) {
-                                            if (product.getProductId() == ProductID) {
-                                                System.out.print("Change Qty: ");
-                                                int qty = sc.nextInt();
-                                                while (qty > product.getGetProductQty()) {
-                                                    System.out.print("Enter Qty ("+product.getGetProductQty()+"): ");
-                                                    qty = sc.nextInt();
+                                        for (Product product : products){
+                                            for (Product productOrders : productOrder) {
+                                                if (productOrders.getProductId() == ProductID) {
+                                                    System.out.print("Change Qty: ");
+                                                    int qty = sc.nextInt();
+                                                    while (qty > product.getGetProductQty()) {
+                                                        System.out.print("Enter Qty ("+product.getGetProductQty()+"): ");
+                                                        qty = sc.nextInt();
+                                                    }
+                                                    productOrders.setGetProductQty(qty);
+                                                    addproduct = false;
+                                                    found = true;
+                                                    break;
                                                 }
-                                                product.setGetProductQty(qty);
-                                                addproduct = false;
-                                                found = true;
-                                                break;
                                             }
                                         }
+
                                         if (!found) {
                                             for (Product productlist : products) {
                                                 if (productlist.getProductId() == ProductID) {

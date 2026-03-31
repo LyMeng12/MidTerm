@@ -1,0 +1,4 @@
+2,1,Meng,Male,08797665,2:coca:1.0:10|,10.0,0.0,Not Payment,Not
+3,1,Meng,Male,08797665,2:coca:1.0:20|,20.0,0.0,Not Payment,Not
+4,1,Meng,Male,08797665,2:coca:1.0:20|,20.0,0.0,Not Payment,Not
+5,1,Meng,Male,08797665,2:coca:1.0:10|,10.0,10.0,Payment Already,Cash
