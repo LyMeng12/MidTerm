@@ -198,6 +198,10 @@ public class Main {
                                         }
                                     }break;
                                     case 2: {
+                                        System.out.println("=================================================");
+                                        System.out.println("-------- Update Product(Name and Price) ---------");
+                                        System.out.println("=================================================");
+                                        System.out.println("ID\t\tName\t\tPrice\tQuantity");
                                         for (Product product : products) {
                                             product.PrintProduct();
                                         }
@@ -508,6 +512,7 @@ public class Main {
                             for (Customer customer : customers) {
                                 customer.displayCustomerDetails();
                             }
+                            System.out.println("-------------------------------------------------");
                             boolean check = true;
                             while (check) {
                                 System.out.print("Enter Customer ID: ");
@@ -532,6 +537,9 @@ public class Main {
                             boolean buymore = true;
                             while (buymore) {
                                 while (addproduct) {
+                                    System.out.println("=================================================");
+                                    System.out.println("\t\t\tProduct List");
+                                    System.out.println("=================================================");
                                     System.out.println("ID\t\tName\t\tPrice\t\tQuantity");
                                     for(Product product : products) {
                                         product.PrintProduct();
@@ -551,6 +559,10 @@ public class Main {
                                             if (product.getProductId() == ProductID) {
                                                 System.out.print("Change Qty: ");
                                                 int qty = sc.nextInt();
+                                                while (qty > product.getGetProductQty()) {
+                                                    System.out.print("Enter Qty ("+product.getGetProductQty()+"): ");
+                                                    qty = sc.nextInt();
+                                                }
                                                 product.setGetProductQty(qty);
                                                 addproduct = false;
                                                 found = true;
@@ -562,6 +574,10 @@ public class Main {
                                                 if (productlist.getProductId() == ProductID) {
                                                     System.out.print("Enter Qty: ");
                                                     int qty = sc.nextInt();
+                                                    while (qty > productlist.getGetProductQty()) {
+                                                        System.out.print("Enter Qty ("+productlist.getGetProductQty()+"): ");
+                                                        qty = sc.nextInt();
+                                                    }
                                                     productOrder.add(new Product(productlist.getProductId(),productlist.getProductName(),productlist.getProductPrice(),qty));
                                                     addproduct = false;
                                                     break;
@@ -574,6 +590,10 @@ public class Main {
                                             if (product.getProductId() == ProductID) {
                                                 System.out.print("Enter Qty: ");
                                                 int qty = sc.nextInt();
+                                                while (qty > product.getGetProductQty()) {
+                                                    System.out.print("Enter Qty ("+product.getGetProductQty()+"): ");
+                                                    qty = sc.nextInt();
+                                                }
                                                 productOrder.add(new Product(product.getProductId(),product.getProductName(),product.getProductPrice(),qty));
                                                 addproduct = false;
                                                 break;
