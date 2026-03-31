@@ -356,8 +356,9 @@ public class Main {
                                     customerID=customer.getCustomerId();
                                 }
                                 customerID+=1;
+                                sc.nextLine();
                                 System.out.print("Customer Name: ");
-                                String customerName = sc.next();
+                                String customerName = sc.nextLine();
                                 System.out.print("Customer Gender(Male/Female): ");
                                 String customerGender = sc.next();
                                 while ( !customerGender.equals("Male") && !customerGender.equals("Female")) {
